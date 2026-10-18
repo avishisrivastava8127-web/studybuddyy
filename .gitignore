@@ -1,0 +1,24 @@
+# Environment variables & secrets (CRITICAL: Never commit .env files)
+.env
+.env.*
+*.env
+**/.env
+**/.env.*
+!**/.env.example
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Production build output
+dist/
+**/dist/
+client/dist/
+
+# Server runtime data
+server/data/
+**/data/history.json
+
+# OS files
+.DS_Store
+Thumbs.db

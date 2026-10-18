@@ -1,0 +1,14 @@
+{
+  "name": "studybuddy-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.28.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}

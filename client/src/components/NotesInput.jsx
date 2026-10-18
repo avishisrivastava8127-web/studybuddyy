@@ -55,10 +55,21 @@ export default function NotesInput({ notes, setNotes }) {
         return;
       }
 
-      setNotes(rawText);
+      let processedText = rawText;
+      let trimmed = false;
+      if (processedText.length > MAX_NOTES) {
+        processedText = processedText.slice(0, MAX_NOTES);
+        trimmed = true;
+      }
+
+      setNotes(processedText);
       const pageCount = result.totalPages || 1;
       setLoadedFileName(`${file.name} (${pageCount} page${pageCount > 1 ? "s" : ""}, ${Math.round(file.size / 1024) || 1} KB)`);
-      showFeedback(`Extracted text from ${pageCount} page${pageCount > 1 ? "s" : ""} of "${file.name}"!`);
+      showFeedback(
+        trimmed
+          ? `Extracted ${pageCount} pages (trimmed to ${MAX_NOTES.toLocaleString()} char limit)!`
+          : `Extracted text from ${pageCount} page${pageCount > 1 ? "s" : ""} of "${file.name}"!`
+      );
     } catch (err) {
       console.error("PDF parse error:", err);
       showFeedback(`Could not parse PDF: ${err?.message || "Invalid or encrypted PDF"}`);

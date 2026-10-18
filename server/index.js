@@ -101,6 +101,7 @@ app.post("/api/chat", async (req, res) => {
 
   // Send the answer as plain text chunks, as soon as each chunk arrives.
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  res.setHeader("X-Content-Type-Options", "nosniff");
   try {
     await streamAI({
       system: tutorSystemPrompt(notes),

@@ -16,7 +16,17 @@ export default function QuizPanel({ notes }) {
     setQuestions([]);             // and the old questions
     try {
       const data = await postJSON("/api/quiz", { notes, difficulty });
-      setQuestions(data.questions || []);
+      const validQuestions = (data.questions || []).filter(
+        (q) =>
+          q &&
+          typeof q.question === "string" &&
+          Array.isArray(q.options) &&
+          q.options.length >= 2 &&
+          typeof q.answerIndex === "number" &&
+          q.answerIndex >= 0 &&
+          q.answerIndex < q.options.length
+      );
+      setQuestions(validQuestions);
     } catch (err) {
       setError(err.message);
     } finally {
